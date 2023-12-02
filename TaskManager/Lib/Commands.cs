@@ -35,7 +35,7 @@
 		/// <param name="args">keys to delete from <see cref="dfm"/>.</param>
 		/// <exception cref="ArgumentNullException"/>
 		/// <exception cref="KeyNotFoundException"/>
-		public void Delete(string[] args, Action<string> errorStream)
+		public void Delete(string[] args, Action<string> output)
 		{
 			if (args.Length == 0) throw new ArgumentNullException(); //if no args throws null args exception
 			for (int i = 0; i < args.Length; i++) //cycle for all args if it more than 1
@@ -44,13 +44,13 @@
 				{
 					dfm.RemoveValue(Convert.ToInt32(args[i])); //removing chosen value
 				}
-				catch (KeyNotFoundException) //if key not exists, shows info about it
+				catch (KeyNotFoundException) //if key not exists, shows error message about it
 				{
-					errorStream.Invoke($"value for key \"{args[i]}\" is not found.");
+					output.Invoke($"value for key \"{args[i]}\" is not found.");
 				}
 				catch (Exception ex) //for any other exceptions
 				{
-					errorStream.Invoke(ex.Message);
+					output.Invoke(ex.Message);
 				}
 			}
 		}
