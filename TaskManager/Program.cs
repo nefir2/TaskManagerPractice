@@ -24,7 +24,7 @@ namespace TaskManager
 			output?.Invoke
 			(
 				$"usage: {Environment.ProcessPath} {{a[dd]|d[elete]|l[ist]|h[elp]|-h|--help}} [parameters]...\n" +
-				$"program that remotes tasks.\n\n" +
+				$"program that manages tasks.\n\n" +
 				$"commands:\n" +
 				$"\tadd [value]... - adds new values to tasks\n" +
 				$"\tdelete [value]... - removes existing values from tasks\n" +

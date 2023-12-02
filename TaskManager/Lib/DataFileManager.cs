@@ -14,8 +14,8 @@
 		/// </summary>
 		public DataFileManager()
 		{
+			data = new Dictionary<int, string>();
 			if (File.Exists(nameOfDB) && File.ReadAllLines(nameOfDB).Length > 0) ReadFile();
-			else data = new Dictionary<int, string>();
 		}
 		/// <summary> uses <see cref="data.this[]"/>. </summary>
 		/// <value> sets a value and rewriting a file with new value. </value>
@@ -51,14 +51,17 @@
 			if (data.Count > 1) for (int i = key; i < data.Count - 1; i++) data[i] = data[i + 1];
 			WriteFile();
 		}
+		private void ClearFile()
+		{
+			using (FileStream fs = new FileStream(nameOfDB, FileMode.Open, FileAccess.ReadWrite)) fs.SetLength(0);
+		}
 		/// <summary>
 		/// remaking a file for data, and writes <see cref="data"/> in file, in exact format.
 		/// </summary>
 		private void WriteFile()
 		{
-			File.Delete(nameOfDB); //this needs to clear file from previous data.
-			File.Create(nameOfDB); //new file.
-			for (int i = 0; i < data.Count; i++) File.AppendAllText(nameOfDB, $"{i}{separator}{data[i]}"); //save all lines to file. here stores format for saving.
+			ClearFile();
+			for (int i = 0; i < data.Count; i++) File.AppendAllText(nameOfDB, $"{i}{separator}{data[i]}\n"); //save all lines to file. here stores format for saving.
 		}
 		/// <summary>
 		/// reads all lines from file and writes in <see cref="data"/>.
@@ -81,7 +84,7 @@
 			v = "";
 			for (int i = 0; i < line.Length; i++) //cycle to parse a string.
 			{
-				if (line[i].Equals(separator)) //if first entry of separator symbol is found, then return parsed to 2 values (before and after separator).
+				if (line[i].ToString().Equals(separator)) //if first entry of separator symbol is found, then return parsed to 2 values (before and after separator).
 				{
 					k = Convert.ToInt32(line.Cut(0, i)); //cut first value from string.
 					v = line.Cut(i + 1, line.Length); //cut second value from string.

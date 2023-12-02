@@ -12,9 +12,9 @@
 		{
 			if (args.Length == 0) throw new ArgumentNullException(nameof(args));
             string line = "";
-			for (int i = 0; i < args.Length; i++) line = line.AddToEnd(args[i] + " ");
-			line = line.Trim();
-			dfm.AddValue(line);
+			for (int i = 0; i < args.Length; i++) dfm.AddValue(args[i]); //line = line.AddToEnd(args[i] + " ");
+			//line = line.Trim();
+			//dfm.AddValue(line);
 		}
 		/// <summary> deletes every value by each key in <paramref name="args"/>. </summary>
 		/// <remarks> throws <see cref="KeyNotFoundException"/> if key is not found and stops program. </remarks>
@@ -32,7 +32,7 @@
 				}
 				catch (KeyNotFoundException ex)
 				{
-					throw new KeyNotFoundException($"value for key \"{i}\" is not found.", ex.InnerException);
+					throw new KeyNotFoundException($"value for key \"{args[i]}\" is not found.", ex.InnerException);
 				}
 			}
 		}
