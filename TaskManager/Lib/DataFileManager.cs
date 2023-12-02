@@ -48,7 +48,7 @@
 		/// <param name="str"></param>
 		public void AddValue(string str)
 		{
-			data.Add(data.Count, str); //adding new value
+			data.Add(data.Count, str); //adding new value to the end
 			WriteFile(); //rewrite file with new data
 		}
 		/// <summary>
@@ -61,7 +61,7 @@
 			if (!data.TryGetValue(key, out _)) throw new KeyNotFoundException(); //throws if key is not found
 			data.Remove(key); //remove chosen value
 			if (data.Count > 1) for (int i = key; i < data.Count - 1; i++) data[i] = data[i + 1]; //move all values to removed
-			if (key != data.Count - 1) data.Remove(data.Count - 1); //remove clone if it is not last key.
+			if (key != data.Count) data.Remove(data.Count - 1); //remove clone if it is not last key.
 			WriteFile(); //rewrite file with new data
 		}
 		private static void ClearFile()
