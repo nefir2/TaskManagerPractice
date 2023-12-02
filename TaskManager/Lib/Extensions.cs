@@ -1,6 +1,6 @@
 ﻿namespace TaskManager.Lib
 {
-	internal static class Extensions
+	public static class Extensions
 	{
 		/// <summary>
 		/// метод вырезающий подстроку из общей строки по указанным позициям.
@@ -73,6 +73,20 @@
 				}
 			}
 			return ret;
+		}
+		/// <summary>
+		/// adds the <see cref="string"/> <paramref name="value"/> to the end of this string.
+		/// </summary>
+		/// <param name="str">this string, where will be added <paramref name="value"/></param>
+		/// <param name="value">value that will be added to this string.</param>
+		/// <returns>this string with appended <paramref name="value"/> to the end.</returns>
+		public static string AddToEnd(this string str, string value)
+		{
+			string outp = "";
+			char[] arr = str.ToArray();
+			for (int i = 0; i <  value.Length; i++) arr = arr.Append(value[i]).ToArray();
+			for (int i = 0; i < arr.Length; i++) outp += arr[i];
+			return outp;
 		}
 	}
 }
