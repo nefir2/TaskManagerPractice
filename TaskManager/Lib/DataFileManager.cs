@@ -1,21 +1,33 @@
 ﻿namespace TaskManager.Lib
 {
+	/// <summary>
+	/// class that represents file manager with dictionary storing.
+	/// </summary>
 	public class DataFileManager
 	{
+		/// <summary>
+		/// separator to separate key and value in data base file.
+		/// </summary>
 		private const string separator = " ";
+		/// <summary>
+		/// name of data base file.
+		/// </summary>
 		private const string nameOfDB = "Tasks.db";
+		/// <summary>
+		/// field for stored data in file.
+		/// </summary>
 		private Dictionary<int, string> data;
 		/// <summary>
 		/// returns dictionary value.
 		/// </summary>
-		public Dictionary<int, string> Data => data;
+		public Dictionary<int, string> Data => data; //get dictionary to get data from it
 		/// <summary>
 		/// reads data from file, and writes to <see cref="data"/> if file exists. else making new object for <see cref="data"/>.
 		/// </summary>
 		public DataFileManager()
 		{
-			data = new Dictionary<int, string>();
-			if (File.Exists(nameOfDB) && File.ReadAllLines(nameOfDB).Length > 0) ReadFile();
+			data = new Dictionary<int, string>(); //creates new object for dictionary
+			if (File.Exists(nameOfDB) && File.ReadAllLines(nameOfDB).Length > 0) ReadFile(); //writes all data from file to dictionary
 		}
 		/// <summary> uses <see cref="data.this[]"/>. </summary>
 		/// <value> sets a value and rewriting a file with new value. </value>
@@ -23,11 +35,11 @@
 		/// <returns>returns a value by <paramref name="k"/> parameter.</returns>
 		public string this[int k]
 		{
-			get => data[k];
+			get => data[k]; //returns value from data
 			set
 			{
-				data[k] = value;
-				WriteFile();
+				data[k] = value; //changes value to chosen key
+				WriteFile(); //rewrite file with new data
 			}
 		}
 		/// <summary>
@@ -36,8 +48,8 @@
 		/// <param name="str"></param>
 		public void AddValue(string str)
 		{
-			data.Add(data.Count, str);
-			WriteFile();
+			data.Add(data.Count, str); //adding new value
+			WriteFile(); //rewrite file with new data
 		}
 		/// <summary>
 		/// removes value from <see cref="data"/> and resets keys to avoid key skip.
@@ -46,21 +58,23 @@
 		/// <exception cref="KeyNotFoundException"/>
 		public void RemoveValue(int key)
 		{
-			if (!data.TryGetValue(key, out _)) throw new KeyNotFoundException();
-			data.Remove(key);
-			if (data.Count > 1) for (int i = key; i < data.Count - 1; i++) data[i] = data[i + 1];
-			WriteFile();
+			if (!data.TryGetValue(key, out _)) throw new KeyNotFoundException(); //throws if key is not found
+			data.Remove(key); //remove chosen value
+			if (data.Count > 1) for (int i = key; i < data.Count - 1; i++) data[i] = data[i + 1]; //move all values to removed
+			if (key != data.Count - 1) data.Remove(data.Count - 1); //remove clone if it is not last key.
+			WriteFile(); //rewrite file with new data
 		}
-		private void ClearFile()
+		private static void ClearFile()
 		{
-			using (FileStream fs = new FileStream(nameOfDB, FileMode.Open, FileAccess.ReadWrite)) fs.SetLength(0);
+			using FileStream fs = new(nameOfDB, FileMode.Open, FileAccess.ReadWrite); //opening file stream by using
+			fs.SetLength(0); //clear file
 		}
 		/// <summary>
 		/// remaking a file for data, and writes <see cref="data"/> in file, in exact format.
 		/// </summary>
 		private void WriteFile()
 		{
-			ClearFile();
+			ClearFile(); //clears file to overwrite it.
 			for (int i = 0; i < data.Count; i++) File.AppendAllText(nameOfDB, $"{i}{separator}{data[i]}\n"); //save all lines to file. here stores format for saving.
 		}
 		/// <summary>
@@ -77,7 +91,7 @@
 		/// <param name="v">value that returns from parsed <paramref name="line"/>.</param>
 		/// <returns>key that returns from parsed <paramref name="line"/>.</returns>
 		/// <exception cref="ArgumentNullException"/>
-		private int ParseLine(string line, out string v)
+		private static int ParseLine(string line, out string v)
 		{
 			if (line is null) throw new ArgumentNullException(nameof(line));
 			int k = -1; //default value, if it can't be parsed.

@@ -1,5 +1,8 @@
 ﻿namespace TaskManager.Lib
 {
+	/// <summary>
+	/// class with extentions to manage string values.
+	/// </summary>
 	public static class Extensions
 	{
 		/// <summary>
