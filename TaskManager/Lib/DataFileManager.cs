@@ -16,7 +16,7 @@
 		/// <summary>
 		/// field for stored data in file.
 		/// </summary>
-		private Dictionary<int, string> data;
+		private readonly Dictionary<int, string> data;
 		/// <summary>
 		/// returns dictionary value.
 		/// </summary>
@@ -67,7 +67,7 @@
 		}
 		private static void ClearFile()
 		{
-			using FileStream fs = new(nameOfDB, FileMode.Open, FileAccess.ReadWrite); //opening file stream by using for closing stream to end of method.
+			using FileStream fs = new FileStream(nameOfDB, FileMode.Open, FileAccess.ReadWrite); //opening file stream by using for closing stream to end of method.
 			fs.SetLength(0); //clear file
 		}
 		/// <summary>
