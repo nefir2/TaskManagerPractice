@@ -28,6 +28,7 @@
 		{
 			data = new Dictionary<int, string>(); //creates new object for dictionary
 			if (File.Exists(nameOfDB) && File.ReadAllLines(nameOfDB).Length > 0) ReadFile(); //writes all data from file to dictionary
+			else using (FileStream fs = new FileStream(nameOfDB, FileMode.Create)) fs.Dispose(); //create file and close stream.
 		}
 		/// <summary> uses <see cref="data.this[]"/>. </summary>
 		/// <value> sets a value and rewriting a file with new value. </value>
@@ -66,7 +67,7 @@
 		}
 		private static void ClearFile()
 		{
-			using FileStream fs = new(nameOfDB, FileMode.Open, FileAccess.ReadWrite); //opening file stream by using
+			using FileStream fs = new(nameOfDB, FileMode.Open, FileAccess.ReadWrite); //opening file stream by using for closing stream to end of method.
 			fs.SetLength(0); //clear file
 		}
 		/// <summary>
