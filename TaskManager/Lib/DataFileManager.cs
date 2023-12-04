@@ -60,17 +60,16 @@
 		public void RemoveValue(int key)
 		{
 			if (!data.TryGetValue(key, out _)) throw new KeyNotFoundException(); //throws if key is not found
-			//data.Remove(key); //remove chosen value
 			if (data.Count > 1) for (int i = key; i < data.Count - 1; i++) data[i] = data[i + 1]; //move all values to removed
 			if (key != data.Count) data.Remove(data.Count - 1); //remove clone if it is not last key.
-			WriteFile(); //rewrite file with new data
+				WriteFile(); //rewrite file with new data
 		}
 		private static void ClearFile()
 		{
 			using FileStream fs = new FileStream(nameOfDB, FileMode.Open, FileAccess.ReadWrite); //opening file stream by using for closing stream to end of method.
 			fs.SetLength(0); //clear file
 		}
-		/// <summary>
+	         	/// <summary>
 		/// remaking a file for data, and writes <see cref="data"/> in file, in exact format.
 		/// </summary>
 		private void WriteFile()

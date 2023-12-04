@@ -20,7 +20,8 @@ namespace TaskManager
 
 			try //try to manage
 			{
-				Arguments.SetArg(Arguments.GetArg(args[0]), args, Console.WriteLine); //choose command, insert arguments and using Console.WriteLine for any outputs. after chosen command, chooses suitable method
+				Arguments.SetArg(Arguments.GetArg(args[0]), args, Console.WriteLine); //choose command, insert arguments and using Console.WriteLine for any outputs.
+																					  //after chosen command, chooses suitable method
 			}
 			catch (Exception ex) //if any exception - write it
 			{
