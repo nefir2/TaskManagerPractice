@@ -38,7 +38,7 @@
 		public void Delete(string[] args, Action<string> output)
 		{
 			if (args.Length == 0) throw new ArgumentNullException(nameof(args)); //if no args throws null args exception
-			for (int i = 0; i < args.Length; i++) //cycle for all args if it more than 1
+			for (int i = 0; i < args.Length; i++) //cycle for all args if it more than or equals 1
 			{
 				try //try to remove
 				{

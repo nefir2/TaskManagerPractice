@@ -60,7 +60,7 @@
 		public void RemoveValue(int key)
 		{
 			if (!data.TryGetValue(key, out _)) throw new KeyNotFoundException(); //throws if key is not found
-			data.Remove(key); //remove chosen value
+			//data.Remove(key); //remove chosen value
 			if (data.Count > 1) for (int i = key; i < data.Count - 1; i++) data[i] = data[i + 1]; //move all values to removed
 			if (key != data.Count) data.Remove(data.Count - 1); //remove clone if it is not last key.
 			WriteFile(); //rewrite file with new data

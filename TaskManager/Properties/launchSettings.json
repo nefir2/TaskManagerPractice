@@ -2,7 +2,7 @@
   "profiles": {
     "TaskManager": {
       "commandName": "Project",
-      "commandLineArgs": "a task"
+      "commandLineArgs": "d 1"
     }
   }
 }

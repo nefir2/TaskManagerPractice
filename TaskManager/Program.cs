@@ -17,6 +17,7 @@ namespace TaskManager
 				Help(Console.WriteLine); //write help by Console.WriteLine method
 				return; //close app
 			}
+
 			try //try to manage
 			{
 				Arguments.SetArg(Arguments.GetArg(args[0]), args, Console.WriteLine); //choose command, insert arguments and using Console.WriteLine for any outputs. after chosen command, chooses suitable method
